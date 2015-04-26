@@ -37,8 +37,24 @@ A sample video of what the algorithm looks like so far can be seenhere:
 
 Should be able to run from the project root with
 
+build the project with:
+
 ```
-lein deps
-lein run
+lein cljsbuild once
 ```
+
+Then open the generated `index.html` in your browser.
+
+```
+open index.html
+```
+
+Alternatively you can have leiningen automatically re-compile cljs
+sources on file-change:
+
+```
+lein cljsbuild auto
+```
+
+Then your index.html should get updated whenever a `src` file changes.
 
