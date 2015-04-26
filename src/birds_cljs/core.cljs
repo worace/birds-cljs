@@ -5,7 +5,7 @@
             [quil.middleware :as m]))
 (enable-console-print!)
 
-(def bounds [600 600])
+(def bounds [1000 600])
 (def grass [153 255 153])
 (def blue [0 128 255])
 (defn setup [] {:flock (f/create-flock 30)})

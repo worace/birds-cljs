@@ -3,7 +3,7 @@ goog.provide('birds_cljs.flock');
 goog.require('cljs.core');
 goog.require('birds_cljs.bird');
 goog.require('quil.core');
-birds_cljs.flock.separation_radius = (20);
+birds_cljs.flock.separation_radius = (25);
 birds_cljs.flock.straying_radius = (50);
 birds_cljs.flock.cohesion_radius = (50);
 birds_cljs.flock.neighborhood_radius = (100);
@@ -12,6 +12,7 @@ birds_cljs.flock.TWO_PI = ((2) * Math.PI);
 birds_cljs.flock.dist = (function dist(c1,c2){
 return cljs.core.apply.call(null,quil.core.dist,cljs.core.concat.call(null,c1,c2));
 });
+birds_cljs.flock.any_QMARK_ = cljs.core.comp.call(null,cljs.core.not,cljs.core.empty_QMARK_);
 birds_cljs.flock.create_flock = (function() {
 var create_flock = null;
 var create_flock__0 = (function (){
@@ -117,8 +118,8 @@ return quil.core.atan2.call(null,cljs.core.last.call(null,coords),cljs.core.firs
 birds_cljs.flock.direction = (function direction(radians){
 while(true){
 if((radians < (0))){
-var G__5925 = (birds_cljs.flock.TWO_PI + radians);
-radians = G__5925;
+var G__7784 = (birds_cljs.flock.TWO_PI + radians);
+radians = G__7784;
 continue;
 } else {
 return cljs.core.mod.call(null,radians,birds_cljs.flock.TWO_PI);
@@ -151,13 +152,17 @@ return cljs.core.assoc.call(null,bird,new cljs.core.Keyword(null,"dir","dir",173
 return cljs.core.assoc.call(null,bird,new cljs.core.Keyword(null,"dir","dir",1734754661),(current + adj));
 }
 });
+birds_cljs.flock.avoid_crowders = (function avoid_crowders(bird,crowders){
+return birds_cljs.flock.steer_from_position.call(null,bird,birds_cljs.flock.avg_position.call(null,crowders));
+});
 birds_cljs.flock.adjust_course = (function adjust_course(flock,bird){
 var nearby = birds_cljs.flock.neighbors.call(null,bird,flock);
+var crowders = birds_cljs.flock.neighbors.call(null,bird,nearby,birds_cljs.flock.separation_radius);
 if(cljs.core.empty_QMARK_.call(null,nearby)){
 return bird;
 } else {
-if(birds_cljs.flock.crowded_QMARK_.call(null,bird,nearby)){
-return birds_cljs.flock.steer_from_position.call(null,bird,new cljs.core.Keyword(null,"position","position",-2011731912).cljs$core$IFn$_invoke$arity$1(cljs.core.first.call(null,birds_cljs.flock.neighbors.call(null,bird,nearby,birds_cljs.flock.separation_radius))));
+if(cljs.core.truth_(birds_cljs.flock.any_QMARK_.call(null,crowders))){
+return birds_cljs.flock.avoid_crowders.call(null,bird,crowders);
 } else {
 var nearby_avg = birds_cljs.flock.avg_position.call(null,nearby);
 if(birds_cljs.flock.straying_QMARK_.call(null,bird,nearby)){

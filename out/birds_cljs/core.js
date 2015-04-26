@@ -6,7 +6,7 @@ goog.require('birds_cljs.flock');
 goog.require('birds_cljs.bird');
 goog.require('quil.core');
 cljs.core.enable_console_print_BANG_.call(null);
-birds_cljs.core.bounds = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(600),(600)], null);
+birds_cljs.core.bounds = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(1000),(600)], null);
 birds_cljs.core.grass = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(153),(255),(153)], null);
 birds_cljs.core.blue = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(128),(255)], null);
 birds_cljs.core.setup = (function setup(){
@@ -33,11 +33,11 @@ return cljs.core.assoc.call(null,state,new cljs.core.Keyword(null,"flock","flock
 birds_cljs.core.draw_bird = (function draw_bird(bird){
 cljs.core.apply.call(null,quil.core.fill,birds_cljs.core.blue);
 
-var vec__7674 = birds_cljs.bird.movement_vector.call(null,bird);
-var x1 = cljs.core.nth.call(null,vec__7674,(0),null);
-var y1 = cljs.core.nth.call(null,vec__7674,(1),null);
-var x2 = cljs.core.nth.call(null,vec__7674,(2),null);
-var y2 = cljs.core.nth.call(null,vec__7674,(3),null);
+var vec__7836 = birds_cljs.bird.movement_vector.call(null,bird);
+var x1 = cljs.core.nth.call(null,vec__7836,(0),null);
+var y1 = cljs.core.nth.call(null,vec__7836,(1),null);
+var x2 = cljs.core.nth.call(null,vec__7836,(2),null);
+var y2 = cljs.core.nth.call(null,vec__7836,(3),null);
 quil.core.push_matrix.call(null);
 
 quil.core.translate.call(null,x1,y1);
@@ -55,51 +55,51 @@ quil.core.triangle.call(null,(8),(0),(0),(20),(0),(-20));
 return quil.core.pop_matrix.call(null);
 });
 birds_cljs.core.draw_flock = (function draw_flock(flock){
-var seq__7679 = cljs.core.seq.call(null,flock);
-var chunk__7680 = null;
-var count__7681 = (0);
-var i__7682 = (0);
+var seq__7841 = cljs.core.seq.call(null,flock);
+var chunk__7842 = null;
+var count__7843 = (0);
+var i__7844 = (0);
 while(true){
-if((i__7682 < count__7681)){
-var bird = cljs.core._nth.call(null,chunk__7680,i__7682);
+if((i__7844 < count__7843)){
+var bird = cljs.core._nth.call(null,chunk__7842,i__7844);
 birds_cljs.core.draw_bird.call(null,bird);
 
-var G__7683 = seq__7679;
-var G__7684 = chunk__7680;
-var G__7685 = count__7681;
-var G__7686 = (i__7682 + (1));
-seq__7679 = G__7683;
-chunk__7680 = G__7684;
-count__7681 = G__7685;
-i__7682 = G__7686;
+var G__7845 = seq__7841;
+var G__7846 = chunk__7842;
+var G__7847 = count__7843;
+var G__7848 = (i__7844 + (1));
+seq__7841 = G__7845;
+chunk__7842 = G__7846;
+count__7843 = G__7847;
+i__7844 = G__7848;
 continue;
 } else {
-var temp__4126__auto__ = cljs.core.seq.call(null,seq__7679);
+var temp__4126__auto__ = cljs.core.seq.call(null,seq__7841);
 if(temp__4126__auto__){
-var seq__7679__$1 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__7679__$1)){
-var c__4546__auto__ = cljs.core.chunk_first.call(null,seq__7679__$1);
-var G__7687 = cljs.core.chunk_rest.call(null,seq__7679__$1);
-var G__7688 = c__4546__auto__;
-var G__7689 = cljs.core.count.call(null,c__4546__auto__);
-var G__7690 = (0);
-seq__7679 = G__7687;
-chunk__7680 = G__7688;
-count__7681 = G__7689;
-i__7682 = G__7690;
+var seq__7841__$1 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__7841__$1)){
+var c__4546__auto__ = cljs.core.chunk_first.call(null,seq__7841__$1);
+var G__7849 = cljs.core.chunk_rest.call(null,seq__7841__$1);
+var G__7850 = c__4546__auto__;
+var G__7851 = cljs.core.count.call(null,c__4546__auto__);
+var G__7852 = (0);
+seq__7841 = G__7849;
+chunk__7842 = G__7850;
+count__7843 = G__7851;
+i__7844 = G__7852;
 continue;
 } else {
-var bird = cljs.core.first.call(null,seq__7679__$1);
+var bird = cljs.core.first.call(null,seq__7841__$1);
 birds_cljs.core.draw_bird.call(null,bird);
 
-var G__7691 = cljs.core.next.call(null,seq__7679__$1);
-var G__7692 = null;
-var G__7693 = (0);
-var G__7694 = (0);
-seq__7679 = G__7691;
-chunk__7680 = G__7692;
-count__7681 = G__7693;
-i__7682 = G__7694;
+var G__7853 = cljs.core.next.call(null,seq__7841__$1);
+var G__7854 = null;
+var G__7855 = (0);
+var G__7856 = (0);
+seq__7841 = G__7853;
+chunk__7842 = G__7854;
+count__7843 = G__7855;
+i__7844 = G__7856;
 continue;
 }
 } else {

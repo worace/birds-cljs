@@ -2,7 +2,7 @@
   (:require [quil.core :as q]
             [birds-cljs.bird :as b]))
 
-(def separation-radius 20)
+(def separation-radius 25)
 (def straying-radius 50)
 (def cohesion-radius 50)
 (def neighborhood-radius 100)
@@ -10,6 +10,7 @@
 (def TWO-PI (* 2 Math/PI))
 
 (defn dist [c1 c2] (apply q/dist (concat c1 c2)))
+(def any? (comp not empty?))
 
 (defn create-flock
   ([] (create-flock 10))
@@ -90,15 +91,18 @@
       (assoc bird :dir (+ current adj))))
   )
 
+(defn avoid-crowders
+  [bird crowders]
+  (steer-from-position bird (avg-position crowders)))
+
 (defn adjust-course
   [flock bird]
-  (let [nearby (neighbors bird flock)]
+  (let [nearby (neighbors bird flock)
+        crowders (neighbors bird nearby separation-radius)]
     (if (empty? nearby)
       bird ;; isolated bird maintains course
-      (if (crowded? bird nearby)
-        ;; pick first crowder and steer away from it??
-        ;; TODO -- also this should be memoized (repeating crowded calc)
-        (steer-from-position bird (:position (first (neighbors bird nearby separation-radius))))
+      (if (any? crowders)
+        (avoid-crowders bird crowders)
         (let [nearby-avg (avg-position nearby)]
           (if (straying? bird nearby)
             ;; bird is straying from neighbors; so steer toward their position
