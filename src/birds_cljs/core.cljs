@@ -3,8 +3,11 @@
             [birds-cljs.bird :as b]
             [birds-cljs.flock :as f]
             [quil.middleware :as m]))
+(enable-console-print!)
 
 (def bounds [600 600])
+(def grass [153 255 153])
+(def blue [0 128 255])
 (defn setup [] {:flock (f/create-flock 30)})
 
 (defn wrap-coord
@@ -26,14 +29,25 @@
   (assoc state :flock (wrap-birds (f/update-flock (:flock state)) bounds)))
 
 (defn draw-bird [bird]
-  (q/ellipse (first (:position bird)) (last (:position bird)) 10 10)
-  (apply q/line (b/movement-vector bird)))
+  (apply q/fill blue)
+  (let [[x1 y1 x2 y2] (b/movement-vector bird)]
+    (q/push-matrix)
+    (q/translate x1 y1)
+    (q/rotate (:dir bird))
+    (q/no-stroke)
+    (q/ellipse 0 0 25 8)
+    (q/triangle 0 0 -15 7 -15 -7)
+    (q/triangle 8 0 0 20 0 -20)
+    (q/pop-matrix)
+  )
+  ;(apply q/line (b/movement-vector bird))
+  )
 
 (defn draw-flock [flock]
   (doseq [bird flock] (draw-bird bird)))
 
 (defn draw [state]
-  (q/background 50 70 80 5.0)
+  (apply q/background grass)
   (draw-flock (:flock state)))
 
 (q/defsketch birds-cljs

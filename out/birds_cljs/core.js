@@ -5,7 +5,10 @@ goog.require('quil.middleware');
 goog.require('birds_cljs.flock');
 goog.require('birds_cljs.bird');
 goog.require('quil.core');
+cljs.core.enable_console_print_BANG_.call(null);
 birds_cljs.core.bounds = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(600),(600)], null);
+birds_cljs.core.grass = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(153),(255),(153)], null);
+birds_cljs.core.blue = new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(128),(255)], null);
 birds_cljs.core.setup = (function setup(){
 return new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"flock","flock",265984040),birds_cljs.flock.create_flock.call(null,(30))], null);
 });
@@ -28,56 +31,75 @@ birds_cljs.core.update_state = (function update_state(state){
 return cljs.core.assoc.call(null,state,new cljs.core.Keyword(null,"flock","flock",265984040),birds_cljs.core.wrap_birds.call(null,birds_cljs.flock.update_flock.call(null,new cljs.core.Keyword(null,"flock","flock",265984040).cljs$core$IFn$_invoke$arity$1(state)),birds_cljs.core.bounds));
 });
 birds_cljs.core.draw_bird = (function draw_bird(bird){
-quil.core.ellipse.call(null,cljs.core.first.call(null,new cljs.core.Keyword(null,"position","position",-2011731912).cljs$core$IFn$_invoke$arity$1(bird)),cljs.core.last.call(null,new cljs.core.Keyword(null,"position","position",-2011731912).cljs$core$IFn$_invoke$arity$1(bird)),(10),(10));
+cljs.core.apply.call(null,quil.core.fill,birds_cljs.core.blue);
 
-return cljs.core.apply.call(null,quil.core.line,birds_cljs.bird.movement_vector.call(null,bird));
+var vec__7674 = birds_cljs.bird.movement_vector.call(null,bird);
+var x1 = cljs.core.nth.call(null,vec__7674,(0),null);
+var y1 = cljs.core.nth.call(null,vec__7674,(1),null);
+var x2 = cljs.core.nth.call(null,vec__7674,(2),null);
+var y2 = cljs.core.nth.call(null,vec__7674,(3),null);
+quil.core.push_matrix.call(null);
+
+quil.core.translate.call(null,x1,y1);
+
+quil.core.rotate.call(null,new cljs.core.Keyword(null,"dir","dir",1734754661).cljs$core$IFn$_invoke$arity$1(bird));
+
+quil.core.no_stroke.call(null);
+
+quil.core.ellipse.call(null,(0),(0),(25),(8));
+
+quil.core.triangle.call(null,(0),(0),(-15),(7),(-15),(-7));
+
+quil.core.triangle.call(null,(8),(0),(0),(20),(0),(-20));
+
+return quil.core.pop_matrix.call(null);
 });
 birds_cljs.core.draw_flock = (function draw_flock(flock){
-var seq__6020 = cljs.core.seq.call(null,flock);
-var chunk__6021 = null;
-var count__6022 = (0);
-var i__6023 = (0);
+var seq__7679 = cljs.core.seq.call(null,flock);
+var chunk__7680 = null;
+var count__7681 = (0);
+var i__7682 = (0);
 while(true){
-if((i__6023 < count__6022)){
-var bird = cljs.core._nth.call(null,chunk__6021,i__6023);
+if((i__7682 < count__7681)){
+var bird = cljs.core._nth.call(null,chunk__7680,i__7682);
 birds_cljs.core.draw_bird.call(null,bird);
 
-var G__6024 = seq__6020;
-var G__6025 = chunk__6021;
-var G__6026 = count__6022;
-var G__6027 = (i__6023 + (1));
-seq__6020 = G__6024;
-chunk__6021 = G__6025;
-count__6022 = G__6026;
-i__6023 = G__6027;
+var G__7683 = seq__7679;
+var G__7684 = chunk__7680;
+var G__7685 = count__7681;
+var G__7686 = (i__7682 + (1));
+seq__7679 = G__7683;
+chunk__7680 = G__7684;
+count__7681 = G__7685;
+i__7682 = G__7686;
 continue;
 } else {
-var temp__4126__auto__ = cljs.core.seq.call(null,seq__6020);
+var temp__4126__auto__ = cljs.core.seq.call(null,seq__7679);
 if(temp__4126__auto__){
-var seq__6020__$1 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__6020__$1)){
-var c__4546__auto__ = cljs.core.chunk_first.call(null,seq__6020__$1);
-var G__6028 = cljs.core.chunk_rest.call(null,seq__6020__$1);
-var G__6029 = c__4546__auto__;
-var G__6030 = cljs.core.count.call(null,c__4546__auto__);
-var G__6031 = (0);
-seq__6020 = G__6028;
-chunk__6021 = G__6029;
-count__6022 = G__6030;
-i__6023 = G__6031;
+var seq__7679__$1 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__7679__$1)){
+var c__4546__auto__ = cljs.core.chunk_first.call(null,seq__7679__$1);
+var G__7687 = cljs.core.chunk_rest.call(null,seq__7679__$1);
+var G__7688 = c__4546__auto__;
+var G__7689 = cljs.core.count.call(null,c__4546__auto__);
+var G__7690 = (0);
+seq__7679 = G__7687;
+chunk__7680 = G__7688;
+count__7681 = G__7689;
+i__7682 = G__7690;
 continue;
 } else {
-var bird = cljs.core.first.call(null,seq__6020__$1);
+var bird = cljs.core.first.call(null,seq__7679__$1);
 birds_cljs.core.draw_bird.call(null,bird);
 
-var G__6032 = cljs.core.next.call(null,seq__6020__$1);
-var G__6033 = null;
-var G__6034 = (0);
-var G__6035 = (0);
-seq__6020 = G__6032;
-chunk__6021 = G__6033;
-count__6022 = G__6034;
-i__6023 = G__6035;
+var G__7691 = cljs.core.next.call(null,seq__7679__$1);
+var G__7692 = null;
+var G__7693 = (0);
+var G__7694 = (0);
+seq__7679 = G__7691;
+chunk__7680 = G__7692;
+count__7681 = G__7693;
+i__7682 = G__7694;
 continue;
 }
 } else {
@@ -88,7 +110,7 @@ break;
 }
 });
 birds_cljs.core.draw = (function draw(state){
-quil.core.background.call(null,(50),(70),(80),5.0);
+cljs.core.apply.call(null,quil.core.background,birds_cljs.core.grass);
 
 return birds_cljs.core.draw_flock.call(null,new cljs.core.Keyword(null,"flock","flock",265984040).cljs$core$IFn$_invoke$arity$1(state));
 });
