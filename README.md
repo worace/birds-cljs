@@ -1,16 +1,44 @@
-# test-js
+## birds
 
-A Quil sketch designed to ... well, that part is up to you.
+Example implementation of Craig Reynolds' [Boids automata algorithm](http://www.red3d.com/cwr/boids/) in
+Clojure using the Quil library as an interface to Processing.
 
-## Usage
+### Rules for Boids:
 
-Run `lein compile` command and open `index.html` in your browser.
+1. Birds attempt to avoid collisions with flockmates by steering away
+   from neighbors average position when too close.
+2. Birds attempt to follow a shared trajectory by steering toward the
+   average heading of their neighbors.
+3. Birds attempt to "flock" together by steering toward the average
+   position of their neighbors.
 
-For interactive development run `lein cljsbuild auto` command. This command will be recompiling cljs to js each time you modify `core.cljs` and you can see result immediately by refreshing page.
+Other topics to explore:
 
-## License
+* Obstacle avoidance?
+* Goal-seeking? (steer toward mouse or some other defined objective?)
 
-Copyright © 2015 FIXME
+#### Issues
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+* Rotation -- current heading rotation implementation has issues with
+  turning in the optimal direction (i.e. turning right 30 degrees
+  instead of left 330 degrees to reach the same heading). This produces
+  some jumpy behavior sometimes.
+* Pretty-fi the rendering -- would be cool to get some nicer
+  colors/design/shapes into the Rendering
+* ClojureScript/processing JS -- my eventual goal is to compile all this
+  down into clojurescript and expose it on the web somehow
+
+#### sample
+
+A sample video of what the algorithm looks like so far can be seenhere:
+[https://vimeo.com/126003095](https://vimeo.com/126003095).
+
+### Usage
+
+Should be able to run from the project root with
+
+```
+lein deps
+lein run
+```
+
